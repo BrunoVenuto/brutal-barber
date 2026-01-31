@@ -1,0 +1,9 @@
+/* basic stylesheet (kept minimal) */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Improve tap targets on mobile */
+button, a {
+  -webkit-tap-highlight-color: transparent;
+}
