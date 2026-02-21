@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { MessageSquare, Sparkles, Send, Loader2 } from 'lucide-react';
 import { GoogleGenAI } from '@google/genai';
+import { siteConfig } from '../config/siteConfig';
 
 const StyleConsultant: React.FC = () => {
   const [input, setInput] = useState('');
@@ -10,7 +11,7 @@ const StyleConsultant: React.FC = () => {
 
   const getAdvice = async () => {
     if (!input.trim()) return;
-    
+
     setLoading(true);
     setResponse(null);
 
@@ -27,7 +28,7 @@ const StyleConsultant: React.FC = () => {
       }
 
       const ai = new GoogleGenAI({ apiKey });
-      const prompt = `Você é um mestre barbeiro visagista da 'Barbearia Brutal & Co.'. 
+      const prompt = `Você é um mestre barbeiro visagista da '${siteConfig.name}'. 
       Responda de forma curta, bruta e profissional, mantendo o estilo masculino. 
       O cliente perguntou: "${input}". 
       Dê uma sugestão de corte ou cuidado de barba com base nisso.`;
@@ -58,9 +59,9 @@ const StyleConsultant: React.FC = () => {
       ) {
         setResponse(
           "⚠️ IA temporariamente indisponível (limite do provedor).\n\n" +
-            "✅ Sugestão (modo demo): Degradê baixo + barba curta alinhada é um combo seguro e moderno.\n" +
-            "✅ Se quiser algo mais marcante: degradê médio + barba cheia com contorno na navalha.\n" +
-            "✅ Dica: finalize com pomada matte e óleo de barba pra acabamento premium.",
+          "✅ Sugestão (modo demo): Degradê baixo + barba curta alinhada é um combo seguro e moderno.\n" +
+          "✅ Se quiser algo mais marcante: degradê médio + barba cheia com contorno na navalha.\n" +
+          "✅ Dica: finalize com pomada matte e óleo de barba pra acabamento premium.",
         );
         return;
       }
@@ -81,13 +82,13 @@ const StyleConsultant: React.FC = () => {
             Dúvida sobre qual corte combina com seu rosto? Nosso consultor movido a Inteligência Artificial dá o veredito bruto.
           </p>
           <div className="relative">
-            <textarea 
+            <textarea
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Ex: Tenho rosto redondo e cabelo liso, o que recomenda?"
               className="w-full bg-black border-2 border-zinc-700 p-4 text-white font-light focus:border-yellow-500 outline-none transition-all resize-none h-32"
             />
-            <button 
+            <button
               onClick={getAdvice}
               disabled={loading}
               className="absolute bottom-4 right-4 bg-yellow-500 text-black p-3 hover:bg-yellow-400 transition-all disabled:opacity-50"
@@ -96,7 +97,7 @@ const StyleConsultant: React.FC = () => {
             </button>
           </div>
         </div>
-        
+
         <div className="md:w-1/2 w-full min-h-[200px] bg-black/40 border-2 border-dashed border-zinc-700 flex flex-col items-center justify-center p-8 text-center">
           {response ? (
             <div className="animate-in fade-in duration-500">

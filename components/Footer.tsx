@@ -1,20 +1,21 @@
 
 import React from 'react';
-import { 
-  Scissors, 
-  MapPin, 
-  Phone, 
-  Clock, 
-  Instagram, 
-  Facebook, 
+import {
+  Scissors,
+  MapPin,
+  Phone,
+  Clock,
+  Instagram,
+  Facebook,
   Youtube,
   ArrowUp
 } from 'lucide-react';
+import { siteConfig } from '../config/siteConfig';
 
 const Footer: React.FC = () => {
-  const instaUrl = ((import.meta as any).env?.VITE_INSTAGRAM_URL as string | undefined) || 'https://instagram.com/';
-  const facebookUrl = ((import.meta as any).env?.VITE_FACEBOOK_URL as string | undefined) || 'https://facebook.com/';
-  const youtubeUrl = ((import.meta as any).env?.VITE_YOUTUBE_URL as string | undefined) || 'https://youtube.com/';
+  const instaUrl = siteConfig.social.instagram;
+  const facebookUrl = siteConfig.social.facebook;
+  const youtubeUrl = siteConfig.social.youtube;
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -28,12 +29,11 @@ const Footer: React.FC = () => {
             <div className="flex items-center gap-3">
               <Scissors className="text-yellow-500" size={32} />
               <span className="text-3xl font-bold tracking-tighter font-oswald">
-                BRUTAL <span className="text-yellow-500">& CO.</span>
+                {siteConfig.shortName.split('&')[0]} <span className="text-yellow-500">&{siteConfig.shortName.split('&')[1]}</span>
               </span>
             </div>
             <p className="text-zinc-500 text-sm leading-relaxed">
-              Resgatando a essência da barbearia clássica para o homem moderno
-              que não abre mão da força e do estilo.
+              {siteConfig.description}
             </p>
             <div className="flex gap-4">
               <a
@@ -71,20 +71,20 @@ const Footer: React.FC = () => {
               <div className="flex items-start gap-3">
                 <MapPin className="text-yellow-500 shrink-0" size={20} />
                 <span className="text-zinc-400 text-sm">
-                  Av. Paulista, 1000 - Bela Vista
+                  {siteConfig.contact.address.street}
                   <br />
-                  São Paulo - SP, 01310-100
+                  {siteConfig.contact.address.cityState}
                 </span>
               </div>
               <div className="flex items-center gap-3">
                 <Phone className="text-yellow-500 shrink-0" size={20} />
-                <span className="text-zinc-400 text-sm">(11) 99999-8888</span>
+                <span className="text-zinc-400 text-sm">{siteConfig.contact.phoneFormated}</span>
               </div>
             </div>
             {/* Simple Map Placeholder */}
             <div className="mt-6 w-full h-48 md:h-72 rounded-xl overflow-hidden border border-zinc-800">
               <iframe
-                src="https://www.google.com/maps?q=Av.+Paulista,+São+Paulo+-+SP&z=16&output=embed"
+                src={siteConfig.contact.address.mapQueryUrl}
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
@@ -100,20 +100,14 @@ const Footer: React.FC = () => {
               HORÁRIOS
             </h4>
             <ul className="space-y-3 text-sm">
-              <li className="flex justify-between border-b border-zinc-900 pb-1">
-                <span className="text-zinc-500">Segunda - Sexta:</span>
-                <span className="text-white font-bold">09h - 20h</span>
-              </li>
-              <li className="flex justify-between border-b border-zinc-900 pb-1">
-                <span className="text-zinc-500">Sábado:</span>
-                <span className="text-white font-bold">08h - 18h</span>
-              </li>
-              <li className="flex justify-between pb-1">
-                <span className="text-zinc-500">Domingo:</span>
-                <span className="text-red-500 font-bold uppercase">
-                  Fechado
-                </span>
-              </li>
+              {siteConfig.hours.map((h, i) => (
+                <li key={i} className={`flex justify-between ${i < siteConfig.hours.length - 1 ? 'border-b border-zinc-900 pb-1' : 'pb-1'}`}>
+                  <span className="text-zinc-500">{h.days}:</span>
+                  <span className={`${h.hours.toLowerCase().includes('fechado') ? 'text-red-500 font-bold uppercase' : 'text-white font-bold'}`}>
+                    {h.hours}
+                  </span>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -138,7 +132,7 @@ const Footer: React.FC = () => {
         </div>
 
         <div className="border-t border-zinc-900 py-10 flex flex-col md:flex-row justify-between items-center gap-6 text-zinc-600 text-xs tracking-widest uppercase">
-          <p>© 2024 Barbearia Brutal & Co. Todos os direitos reservados.</p>
+          <p>© {new Date().getFullYear()} {siteConfig.name}. Todos os direitos reservados.</p>
           <div className="flex gap-8">
             <a href="#" className="hover:text-yellow-500">
               Políticas

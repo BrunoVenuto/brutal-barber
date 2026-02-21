@@ -1,14 +1,15 @@
 
 import React, { useState, useEffect } from 'react';
-import { 
-  Scissors, 
-  MapPin, 
-  Clock, 
-  Phone, 
-  Instagram, 
-  Facebook, 
-  ChevronRight, 
-  Star, 
+import { theme } from './config/theme';
+import {
+  Scissors,
+  MapPin,
+  Clock,
+  Phone,
+  Instagram,
+  Facebook,
+  ChevronRight,
+  Star,
   CheckCircle2,
   Calendar,
   Menu,
@@ -40,13 +41,26 @@ const App: React.FC = () => {
     return () => window.removeEventListener('keydown', onKeyDown);
   }, [showBooking]);
 
+  // Set up theme variables globally
+  useEffect(() => {
+    const root = document.documentElement;
+    root.style.setProperty('--color-brand', theme.colors.brand);
+    root.style.setProperty('--color-brand-hover', theme.colors.brandHover);
+    root.style.setProperty('--color-bg', theme.colors.background);
+    root.style.setProperty('--color-text', theme.colors.text);
+
+    // Also apply main background color directly if you want it exact
+    document.body.style.backgroundColor = theme.colors.background;
+    document.body.style.color = theme.colors.text;
+  }, []);
+
   return (
     <div className="min-h-screen flex flex-col selection:bg-yellow-500 selection:text-black">
       <Header onBookingClick={toggleBooking} />
-      
+
       <main className="flex-grow">
         <Hero onBookingClick={toggleBooking} />
-        
+
         <section id="servicos" className="py-20 bg-zinc-950">
           <Services />
         </section>
@@ -106,7 +120,7 @@ const App: React.FC = () => {
       )}
 
       {/* Floating Action Button for Mobile Booking */}
-      <button 
+      <button
         onClick={toggleBooking}
         className="fixed bottom-6 right-6 md:hidden z-50 bg-yellow-500 text-black p-4 rounded-full shadow-2xl hover:bg-yellow-400 transition-all flex items-center justify-center border-4 border-black"
       >

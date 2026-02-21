@@ -1,54 +1,9 @@
 
 import React from 'react';
+import { siteConfig } from '../config/siteConfig';
 
 const Gallery: React.FC = () => {
-  const images = [
-    {
-      url: 'https://images.unsplash.com/photo-1621605815971-fbc98d665033?auto=format&fit=crop&q=80&w=800',
-      title: 'FADE DE PRECISÃO',
-      author: 'Felipe Fade'
-    },
-    {
-      url: 'https://images.unsplash.com/photo-1605497788044-5a32c7078486?auto=format&fit=crop&q=80&w=800',
-      title: 'LÂMINAS DE AÇO',
-      author: 'Mestre Silva'
-    },
-    {
-      url: 'https://images.unsplash.com/photo-1592647420448-61635605094e?auto=format&fit=crop&q=80&w=800',
-      title: 'CONFORTO VINTAGE',
-      author: 'Unidade Paulista'
-    },
-    {
-      url: 'https://images.unsplash.com/photo-1626014303757-6466006769f3?auto=format&fit=crop&q=80&w=800',
-      title: 'BARBA ESCULPIDA',
-      author: 'Ricardo Navalha'
-    },
-    {
-      url: 'https://images.unsplash.com/photo-1622286332618-f2803b186711?auto=format&fit=crop&q=80&w=800',
-      title: 'RITUAL DA TOALHA',
-      author: 'Mestre Silva'
-    },
-    {
-      url: 'https://images.unsplash.com/photo-1507081323647-4d250478b919?auto=format&fit=crop&q=80&w=800',
-      title: 'FERRAMENTAS DO OFÍCIO',
-      author: 'Equipe Brutal'
-    },
-    {
-      url: 'https://images.unsplash.com/photo-1621607512214-68297480165e?auto=format&fit=crop&q=80&w=800',
-      title: 'CORTE EXECUTIVO',
-      author: 'Felipe Fade'
-    },
-    {
-      url: 'https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?auto=format&fit=crop&q=80&w=800',
-      title: 'ESPUMA TRADICIONAL',
-      author: 'Ricardo Navalha'
-    },
-    {
-      url: 'https://images.unsplash.com/photo-1618331835717-8016f122c19e?auto=format&fit=crop&q=80&w=800',
-      title: 'VISAGISMO MODERNO',
-      author: 'Mestre Silva'
-    }
-  ];
+  const images = siteConfig.gallery;
 
   return (
     <div className="container mx-auto px-4">
@@ -66,9 +21,9 @@ const Gallery: React.FC = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {images.map((item, idx) => (
           <div key={idx} className="group relative overflow-hidden aspect-square border-4 border-zinc-900 hover:border-yellow-500 transition-all cursor-pointer bg-zinc-800">
-            <img 
-              src={item.url} 
-              alt={item.title} 
+            <img
+              src={item.url}
+              alt={item.title}
               loading="lazy"
               className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700 opacity-90 group-hover:opacity-100"
               onError={(e) => {
@@ -87,7 +42,7 @@ const Gallery: React.FC = () => {
           </div>
         ))}
       </div>
-      
+
       <div className="mt-20 flex flex-col items-center">
         <div className="w-full max-w-2xl h-px bg-gradient-to-r from-transparent via-zinc-800 to-transparent mb-8"></div>
         <p className="text-zinc-500 font-oswald italic text-lg text-center">

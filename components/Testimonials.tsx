@@ -1,29 +1,11 @@
 
 import React from 'react';
 import { Star, Quote } from 'lucide-react';
-
-const testimonials = [
-  {
-    name: "Carlos Alberto",
-    role: "Empresário",
-    text: "Lugar de homem. Ambiente foda, atendimento de primeira e o corte impecável. Não troco por nada.",
-    rating: 5
-  },
-  {
-    name: "Marcos Vinícius",
-    role: "Desenvolvedor",
-    text: "O sistema de agendamento funciona muito bem. Cheguei e já fui atendido. A cerveja cortesia é o toque final.",
-    rating: 5
-  },
-  {
-    name: "Roberto Freitas",
-    role: "Advogado",
-    text: "A melhor barba que já fiz. A toalha quente com essência de cedro é um ritual que todo homem deveria passar.",
-    rating: 5
-  }
-];
+import { siteConfig } from '../config/siteConfig';
 
 const Testimonials: React.FC = () => {
+  const testimonials = siteConfig.testimonials;
+
   return (
     <div className="container mx-auto px-4">
       <div className="text-center mb-16">

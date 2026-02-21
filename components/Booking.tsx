@@ -1,6 +1,7 @@
 
 import React, { useMemo, useState } from 'react';
 import { Calendar, User, CheckCircle, Scissors } from 'lucide-react';
+import { siteConfig } from '../config/siteConfig';
 
 interface BookingProps {
   onClose?: () => void;
@@ -30,20 +31,19 @@ const Booking: React.FC<BookingProps> = ({ onClose }) => {
   const nextStep = () => setStep(step + 1);
   const prevStep = () => setStep(step - 1);
 
-  const services = ["Corte Brutal", "Barba de Respeito", "Combo Ouro", "Pai & Filho"];
-  const barbers = ["Mestre Silva", "Ricardo 'Navalha'", "Felipe 'Fade'"];
-  const dates = ["Hoje", "Amanhã (Ter)", "Quarta", "Quinta"];
-  const times = ["09:00", "10:30", "13:00", "14:30", "16:00", "18:00"];
+  const services = siteConfig.booking.services;
+  const barbers = siteConfig.booking.barbers;
+  const dates = siteConfig.booking.dates;
+  const times = siteConfig.booking.times;
 
   const shopWhatsApp = useMemo(() => {
     const envNumber = (import.meta as any).env?.VITE_WHATSAPP_NUMBER as string | undefined;
-    // fallback: seu número (Bruno) só para teste; troque no .env.local
-    return normalizeWhatsAppNumber(envNumber || '5531995453632');
+    return normalizeWhatsAppNumber(envNumber || siteConfig.contact.whatsapp);
   }, []);
 
   const waLink = useMemo(() => {
     const msg =
-      `🧔‍♂️ *Novo agendamento — Barbearia Brutal & Co.*\n\n` +
+      `🧔‍♂️ *Novo agendamento — ${siteConfig.name}*\n\n` +
       `✅ *Serviço:* ${formData.service || '—'}\n` +
       `💈 *Barbeiro:* ${formData.barber || '—'}\n` +
       `📅 *Quando:* ${formData.date || '—'} às ${formData.time || '—'}\n\n` +
@@ -77,8 +77,8 @@ const Booking: React.FC<BookingProps> = ({ onClose }) => {
           </div>
           <div className="flex gap-2">
             {[1, 2, 3, 4].map((s) => (
-              <div 
-                key={s} 
+              <div
+                key={s}
                 className={`w-10 h-2 rounded-full transition-all ${step >= s ? 'bg-yellow-500' : 'bg-zinc-800'}`}
               ></div>
             ))}
@@ -173,24 +173,24 @@ const Booking: React.FC<BookingProps> = ({ onClose }) => {
               <div className="space-y-4">
                 <div>
                   <label className="text-xs font-bold text-yellow-500 uppercase block mb-1">Nome Completo</label>
-                  <input 
+                  <input
                     required
-                    type="text" 
+                    type="text"
                     placeholder="Ex: João da Silva"
                     className="w-full bg-zinc-900 border-2 border-zinc-800 p-4 text-white focus:border-yellow-500 outline-none transition-all"
                     value={formData.name}
-                    onChange={(e) => setFormData({...formData, name: e.target.value})}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   />
                 </div>
                 <div>
                   <label className="text-xs font-bold text-yellow-500 uppercase block mb-1">WhatsApp</label>
-                  <input 
+                  <input
                     required
-                    type="tel" 
+                    type="tel"
                     placeholder="(00) 00000-0000"
                     className="w-full bg-zinc-900 border-2 border-zinc-800 p-4 text-white focus:border-yellow-500 outline-none transition-all"
                     value={formData.phone}
-                    onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                   />
                 </div>
               </div>
@@ -219,7 +219,7 @@ const Booking: React.FC<BookingProps> = ({ onClose }) => {
             <p className="text-zinc-400 mb-8 max-w-md mx-auto">
               Seu agendamento para <strong>{formData.service}</strong> foi confirmado. Enviamos os detalhes para seu WhatsApp. Nos vemos em breve!
             </p>
-            <button 
+            <button
               onClick={() => {
                 setStep(1);
                 onClose?.();

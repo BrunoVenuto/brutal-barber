@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import { Scissors, Menu, X } from 'lucide-react';
+import { siteConfig } from '../config/siteConfig';
 
 interface HeaderProps {
   onBookingClick: () => void;
@@ -9,13 +10,7 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ onBookingClick }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const navItems = [
-    { name: 'Início', href: '#' },
-    { name: 'Serviços', href: '#servicos' },
-    { name: 'Agendar', href: '#agendamento' },
-    { name: 'Galeria', href: '#galeria' },
-    { name: 'Unidade', href: '#unidade' },
-  ];
+  const navItems = siteConfig.navItems;
 
   return (
     <header className="sticky top-0 z-50 bg-black/95 border-b-2 border-yellow-500/30 backdrop-blur-sm">
@@ -25,7 +20,7 @@ const Header: React.FC<HeaderProps> = ({ onBookingClick }) => {
             <Scissors className="text-black" size={24} />
           </div>
           <span className="text-2xl font-bold tracking-tighter font-oswald text-white">
-            BRUTAL <span className="text-yellow-500">& CO.</span>
+            {siteConfig.shortName.split('&')[0]} <span className="text-yellow-500">&{siteConfig.shortName.split('&')[1]}</span>
           </span>
         </div>
 
@@ -44,12 +39,12 @@ const Header: React.FC<HeaderProps> = ({ onBookingClick }) => {
             onClick={onBookingClick}
             className="bg-yellow-500 text-black px-6 py-2 rounded-sm font-oswald font-bold hover:bg-yellow-400 transition-all active:scale-95 shadow-[4px_4px_0px_0px_rgba(255,255,255,0.2)]"
           >
-            AGENDAR AGORA
+            {siteConfig.labels.bookingButton}
           </button>
         </nav>
 
         {/* Mobile Toggle */}
-        <button 
+        <button
           className="md:hidden text-yellow-500"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
@@ -77,7 +72,7 @@ const Header: React.FC<HeaderProps> = ({ onBookingClick }) => {
             }}
             className="bg-yellow-500 text-black py-4 font-oswald font-bold text-lg rounded-sm"
           >
-            AGENDAR AGORA
+            {siteConfig.labels.bookingButton}
           </button>
         </div>
       )}

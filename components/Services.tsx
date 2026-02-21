@@ -1,37 +1,14 @@
 
 import React from 'react';
 import { Scissors, Zap, Wind, User } from 'lucide-react';
+import { servicesConfig } from '../config/siteConfig';
 
-const services = [
-  {
-    title: "Corte Brutal",
-    price: "R$ 60",
-    description: "Corte clássico ou moderno com finalização premium e secagem.",
-    icon: <Scissors className="text-yellow-500" size={24} />,
-    duration: "45 min"
-  },
-  {
-    title: "Barba de Respeito",
-    price: "R$ 45",
-    description: "Alinhamento, toalha quente, shave gel e balm amadeirado.",
-    icon: <Wind className="text-yellow-500" size={24} />,
-    duration: "30 min"
-  },
-  {
-    title: "Combo Ouro",
-    price: "R$ 95",
-    description: "Corte + Barba + Lavagem especial + Cerveja gelada cortesia.",
-    icon: <Zap className="text-yellow-500" size={24} />,
-    duration: "1h 15 min"
-  },
-  {
-    title: "Pai & Filho",
-    price: "R$ 100",
-    description: "Dois cortes para fortalecer a tradição entre gerações.",
-    icon: <User className="text-yellow-500" size={24} />,
-    duration: "1h 30 min"
-  }
-];
+const iconMap: Record<string, React.ReactNode> = {
+  Scissors: <Scissors className="text-yellow-500" size={24} />,
+  Wind: <Wind className="text-yellow-500" size={24} />,
+  Zap: <Zap className="text-yellow-500" size={24} />,
+  User: <User className="text-yellow-500" size={24} />
+};
 
 const Services: React.FC = () => {
   return (
@@ -45,23 +22,23 @@ const Services: React.FC = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-        {services.map((service, index) => (
-          <div 
-            key={index} 
+        {servicesConfig.map((service, index) => (
+          <div
+            key={index}
             className="group relative bg-zinc-900 border-2 border-zinc-800 p-8 hover:border-yellow-500/50 transition-all hover:-translate-y-2"
           >
             <div className="mb-6 flex justify-between items-start">
               <div className="bg-zinc-800 p-3 rounded group-hover:bg-yellow-500 transition-colors">
                 <div className="group-hover:text-black transition-colors">
-                  {service.icon}
+                  {iconMap[service.iconName] || <Scissors className="text-yellow-500" size={24} />}
                 </div>
               </div>
               <span className="text-2xl font-bold font-oswald text-yellow-500">{service.price}</span>
             </div>
-            
+
             <h3 className="text-2xl font-bold font-oswald mb-3 text-white">{service.title}</h3>
             <p className="text-zinc-500 mb-6 line-clamp-2">{service.description}</p>
-            
+
             <div className="flex items-center gap-2 text-zinc-400 text-sm font-bold">
               <span>🕒 {service.duration}</span>
             </div>
