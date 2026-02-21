@@ -16,7 +16,7 @@ export const theme = {
 
     // You can also customize the dark background if you want a navy/dark gray instead of pure black
     background: '#0a0a0a',
-    
+
     // Default text color
     text: '#ffffff',
   }
